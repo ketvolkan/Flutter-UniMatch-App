@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:unimatch/entities/User.dart';
+import 'package:unimatch/models/User.dart';
 import 'package:unimatch/pages/Chat.dart';
 import 'package:unimatch/pages/ChatList.dart';
 import 'package:unimatch/pages/Home.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unimatch/Entities/User.dart';
+import 'package:unimatch/models/User.dart';
 import 'package:unimatch/widgets/HomePage/CardStack.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
 import 'package:unimatch/widgets/HomePage/MyAppBar.dart';

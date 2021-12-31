@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:unimatch/Entities/User.dart';
+import 'package:unimatch/models/User.dart';
 
 class MatchEngine extends ChangeNotifier {
   final List<Match> _matches;

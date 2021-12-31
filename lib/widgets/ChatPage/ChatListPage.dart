@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:unimatch/entities/User.dart';
+import 'package:unimatch/models/User.dart';
 import 'package:unimatch/widgets/ChatPage/MyCircleWidget.dart';
 
 class ChatLists extends StatelessWidget {
   ChatLists({Key? key}) : super(key: key);
-  final List<User> chats = demoProfiles;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          User chat = chats[index];
-          String _imageUrl = chats[index].photos![0].photoUrl!;
+          String _imageUrl = 'assets/photo_1.jpg';
           return GestureDetector(
             onTap: () {
-              var choosen = chats[index];
+              var choosen = null;
               Navigator.pushNamed(context, '/Chat', arguments: choosen);
             },
             child: Card(
@@ -67,7 +66,7 @@ class ChatLists extends StatelessWidget {
                       ),
                 child: ListTile(
                   title: Text(
-                    chat.firstName! + " " + chat.lastName!,
+                    "Volkan Ket",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -87,7 +86,7 @@ class ChatLists extends StatelessWidget {
             ),
           );
         },
-        itemCount: chats.length,
+        itemCount: 5,
         separatorBuilder: (context, index) {
           if ((index + 1) % 2 == 0)
             return SizedBox();

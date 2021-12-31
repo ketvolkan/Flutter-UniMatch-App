@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:unimatch/entities/message.dart';
+import 'package:unimatch/models/Message.dart';
 
 class ChatDetailPage extends StatelessWidget {
   const ChatDetailPage({Key? key}) : super(key: key);

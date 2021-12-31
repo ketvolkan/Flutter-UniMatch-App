@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttery_dart2/layout.dart';
-import 'package:unimatch/Entities/User.dart';
+import 'package:unimatch/models/User.dart';
+import 'package:unimatch/models/UserPhoto.dart';
 import 'package:unimatch/widgets/HomePage/MatchButton.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
 import 'package:unimatch/widgets/HomePage/PhotoBrowser.dart';
@@ -28,7 +29,7 @@ class _CardStackState extends State<CardStack> {
     _currentMatch = widget.matchEngine.currentMatch;
     _currentMatch!.addListener(_onMatchChange);
 
-    _frontCard = new Key(_currentMatch!.user!.firstName!);
+    _frontCard = new Key(_currentMatch!.user!.data[0].firstName);
   }
 
   @override
@@ -71,7 +72,7 @@ class _CardStackState extends State<CardStack> {
         _currentMatch!.addListener(_onMatchChange);
       }
 
-      _frontCard = new Key(_currentMatch!.user!.firstName!);
+      _frontCard = new Key(_currentMatch!.user!.data[0].firstName);
     });
   }
 
@@ -437,7 +438,7 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   Widget _buildBackground() {
     return new PhotoBrowser(
-      photoAssetPaths: widget.user.photos!,
+      photoAssetPaths: widget.user.data[0].userPhotoUserId,
       visiblePhotoIndex: 0,
     );
   }
@@ -467,10 +468,10 @@ class _ProfileCardState extends State<ProfileCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      new Text(widget.user.firstName!,
+                      new Text(widget.user.data[0].firstName,
                           style: new TextStyle(
                               color: Colors.white, fontSize: 24.0)),
-                      new Text(widget.user.description!,
+                      new Text(widget.user.data[0].description,
                           style: new TextStyle(
                               color: Colors.white, fontSize: 18.0))
                     ],
