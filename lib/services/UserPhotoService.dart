@@ -7,13 +7,20 @@ import 'package:unimatch/models/User.dart';
 import 'package:unimatch/models/UserPhoto.dart';
 import 'package:unimatch/utilities/connection.dart';
 
-Future<List<UserPhoto>> getAllUserPhoto() async {
+Future<List<UserPhoto>> getAllUserPhoto({String service = "getAll"}) async {
   try {
-    var response = await Dio().get(connection() + "/userPhoto/getAll");
+    Uri url = Uri.parse(connection() + "/userPhoto/" + service);
+    var response = await http.get(url, headers: {"Accept": "application/json"});
     List<UserPhoto> userPhotoList = [];
     if (response.statusCode == 200) {
-      userPhotoList =
-          (response.data as List).map((e) => UserPhoto.fromMap(e)).toList();
+      var resBody = json.decode(utf8.decode(response.bodyBytes));
+      for (var i = 0; i < (resBody['data'] as List).length; i++) {
+        userPhotoList.add(new UserPhoto(
+            active: resBody['data'][i]['active'],
+            id: resBody['data'][i]['id'],
+            photoUrl: resBody['data'][i]['photoUrl'],
+            userId: resBody['data'][i]['userId']['id']));
+      }
     }
     return userPhotoList;
   } on DioError catch (e) {

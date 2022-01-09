@@ -17,19 +17,19 @@ class Message {
   });
 }
 
-User users = User(data: [
-  Datum(
-      active: true,
-      dateOfBirth: DateTime.now(),
-      description: "asdsd",
-      firstName: "asdsd",
-      gender: "asdsd",
-      id: 1,
-      lastName: "asdsd",
-      mail: "asdsd",
-      phoneNumber: "asdsd",
-      verifiedAccount: true),
-], message: "message", success: true);
+User users = User(
+    active: true,
+    dateOfBirth: DateTime.now(),
+    description: "asdsd",
+    firstName: "asdsd",
+    gender: "asdsd",
+    id: 1,
+    lastName: "asdsd",
+    mail: "asdsd",
+    phoneNumber: "asdsd",
+    verifiedAccount: true,
+    password: "1234",
+    userPhotos: []);
 
 // EXAMPLE CHATS ON HOME SCREEN
 List<Message> chats = [

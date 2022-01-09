@@ -8,6 +8,7 @@ import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
 import 'package:unimatch/widgets/HomePage/MyAppBar.dart';
 import 'package:unimatch/widgets/HomePage/MyBottomAppBar.dart';
 import 'package:unimatch/widgets/HomePage/MyFloatingActionButton.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,27 +18,36 @@ class Home extends StatefulWidget {
 
 late final Future<List<User>> _users;
 late final Future<List<UserPhoto>> _userPhotos;
+int s = 0;
 
 class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _users = getAllUser();
-    _userPhotos = getAllUserPhoto();
+    if (s == 0) {
+      _users = getAllUser();
+      _userPhotos = getAllUserPhoto();
+      s++;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    void getAllProfiles(profiles, photos) {
+    List<User> getAllProfiles(profiles, photos) {
       List<User> _profiles = profiles;
       List<UserPhoto> _photos = photos;
       for (var i = 0; i < _profiles.length; i++) {
         for (var h = 0; h < _photos.length; h++) {
-          if (_profiles[0].data[i].id == _photos[0].data[i].userId) {
-            _profiles[0].data[i].userPhotoUserId.add(_photos[h]);
+          if (_profiles[i].id == _photos[h].userId) {
+            _profiles[i].userPhotos.add(_photos[h].photoUrl);
           }
         }
+        if (_profiles[i].userPhotos.length == 0) {
+          _profiles[i].userPhotos.add("assets/placeholder_image.jpg");
+        }
       }
+
+      return _profiles;
     }
 
     return Scaffold(
@@ -65,17 +75,15 @@ class _HomeState extends State<Home> {
                       );
                     } else if (snapshotPhotos.hasError) {
                       return Center(
-                        child: Text(snapshotUser.error.toString()),
+                        child: Text(snapshotPhotos.error.toString()),
                       );
                     } else {
-                      print(snapshotPhotos.data.toString());
                       return Center(
                         child: CircularProgressIndicator(),
                       );
                     }
                   });
             } else if (snapshotUser.hasError) {
-              print(snapshotUser.data.toString());
               return Center(
                 child: Text(snapshotUser.error.toString()),
               );

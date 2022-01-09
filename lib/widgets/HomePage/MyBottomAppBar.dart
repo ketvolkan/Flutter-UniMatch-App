@@ -34,7 +34,7 @@ class MyBottomAppBar extends StatelessWidget {
               Navigator.pushReplacementNamed(context, "/Profile");
               break;
             case 1:
-              Navigator.pushReplacementNamed(context, "/");
+              Navigator.pushReplacementNamed(context, "/Home");
               break;
             case 2:
               Navigator.pushReplacementNamed(context, "/ChatList");

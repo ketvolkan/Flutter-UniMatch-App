@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unimatch/models/UserPhoto.dart';
 
 class PhotoBrowser extends StatefulWidget {
-  final List<UserPhoto> photoAssetPaths;
+  final List<String> photoAssetPaths;
   final int visiblePhotoIndex;
 
   PhotoBrowser(
@@ -82,7 +82,7 @@ class _PhotoBrowserState extends State<PhotoBrowser> {
       children: <Widget>[
         // Photo
         new Image.asset(
-          widget.photoAssetPaths[visiblePhotoIndex].data[0].photoUrl,
+          widget.photoAssetPaths[visiblePhotoIndex],
           fit: BoxFit.cover,
         ),
         // Photo indicator

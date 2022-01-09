@@ -39,6 +39,9 @@ dependencies:
   flutter_chat_ui: ^1.5.3
   http:
   dio: ^4.0.4
+  syncfusion_flutter_datepicker: ^19.4.41
+  flutter_datetime_picker: ^1.5.1
+  flutter_session_manager: ^1.0.3
   
 
 dev_dependencies:

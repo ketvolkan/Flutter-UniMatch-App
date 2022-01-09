@@ -29,7 +29,7 @@ class _CardStackState extends State<CardStack> {
     _currentMatch = widget.matchEngine.currentMatch;
     _currentMatch!.addListener(_onMatchChange);
 
-    _frontCard = new Key(_currentMatch!.user!.data[0].firstName);
+    _frontCard = new Key(_currentMatch!.user!.firstName);
   }
 
   @override
@@ -72,7 +72,7 @@ class _CardStackState extends State<CardStack> {
         _currentMatch!.addListener(_onMatchChange);
       }
 
-      _frontCard = new Key(_currentMatch!.user!.data[0].firstName);
+      _frontCard = new Key(_currentMatch!.user!.firstName);
     });
   }
 
@@ -438,7 +438,7 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   Widget _buildBackground() {
     return new PhotoBrowser(
-      photoAssetPaths: widget.user.data[0].userPhotoUserId,
+      photoAssetPaths: widget.user.userPhotos,
       visiblePhotoIndex: 0,
     );
   }
@@ -468,10 +468,10 @@ class _ProfileCardState extends State<ProfileCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      new Text(widget.user.data[0].firstName,
+                      new Text(widget.user.firstName,
                           style: new TextStyle(
                               color: Colors.white, fontSize: 24.0)),
-                      new Text(widget.user.data[0].description,
+                      new Text(widget.user.description,
                           style: new TextStyle(
                               color: Colors.white, fontSize: 18.0))
                     ],

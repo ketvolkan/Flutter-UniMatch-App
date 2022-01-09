@@ -35,11 +35,10 @@ class _ChatState extends State<Chat> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              MyCircleWidget(user.data[0].userPhotoUserId[0].data[0].photoUrl),
+              MyCircleWidget(user.userPhotos[0]),
               Container(
                   margin: EdgeInsets.only(left: 20),
-                  child: Text(
-                      user.data[0].firstName + " " + user.data[0].lastName)),
+                  child: Text(user.firstName + " " + user.lastName)),
             ],
           )),
       body: Container(

@@ -86,7 +86,7 @@ class ChatLists extends StatelessWidget {
             ),
           );
         },
-        itemCount: 5,
+        itemCount: 20,
         separatorBuilder: (context, index) {
           if ((index + 1) % 2 == 0)
             return SizedBox();
