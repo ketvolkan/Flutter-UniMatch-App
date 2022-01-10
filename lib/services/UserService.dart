@@ -16,12 +16,12 @@ Future<List<User>> getAllUser({String service = "getAll"}) async {
       for (var i = 0; i < (resBody['data'] as List).length; i++) {
         userList.add(new User(
           active: resBody['data'][i]['active'],
-          dateOfBirth: DateTime.parse(resBody['data'][i]['dateOfBirth']),
+          dateOfBirth: resBody['data'][i]['dateOfBirth'],
           description: resBody['data'][i]['description'],
           firstName: resBody['data'][i]['firstName'],
           gender: resBody['data'][i]['gender'],
           id: resBody['data'][i]['id'],
-          lastName: resBody['data'][i]['lastNamea'],
+          lastName: resBody['data'][i]['lastName'],
           mail: resBody['data'][i]['mail'],
           phoneNumber: resBody['data'][i]['phoneNumber'],
           verifiedAccount: resBody['data'][i]['verifiedAccount'],
@@ -66,4 +66,26 @@ Future<List<User>> getAllByVerifiedAccount(
 Future<List<User>> getAllUserByActive(
     {String service = "getAll", required bool Active}) async {
   return getAllUser(service: "/getAllByActive?active=" + Active.toString());
+}
+
+Future<http.Response> registerUser(User user) {
+  return http.post(
+    Uri.parse(connection() + "/user/add"),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      'firstName': user.firstName,
+      'lastName': user.lastName,
+      'description': user.description,
+      'gender': user.gender,
+      'mail': user.mail,
+      'password': user.password,
+      'dateOfBirth': user.dateOfBirth.toString().substring(0, 10),
+      'active': user.active,
+      'verifiedAccount': user.verifiedAccount,
+      'phoneNumber': user.phoneNumber,
+      'id': user.id,
+    }),
+  );
 }

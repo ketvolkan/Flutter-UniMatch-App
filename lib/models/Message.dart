@@ -19,7 +19,7 @@ class Message {
 
 User users = User(
     active: true,
-    dateOfBirth: DateTime.now(),
+    dateOfBirth: "",
     description: "asdsd",
     firstName: "asdsd",
     gender: "asdsd",

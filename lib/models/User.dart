@@ -7,8 +7,6 @@ import 'dart:convert';
 
 import 'package:unimatch/models/UserPhoto.dart';
 
-User userFromMap(String str) => User.fromMap(json.decode(str));
-
 class User {
   User(
       {required this.active,
@@ -25,7 +23,7 @@ class User {
       required this.userPhotos});
   late List<String> userPhotos = [];
   final bool active;
-  final DateTime dateOfBirth;
+  final String dateOfBirth;
   final String description;
   final String firstName;
   final String gender;
@@ -35,18 +33,4 @@ class User {
   final String phoneNumber;
   final String password;
   final bool verifiedAccount;
-
-  factory User.fromMap(Map<String, dynamic> json) => User(
-      active: json["active"],
-      dateOfBirth: DateTime.parse(json["dateOfBirth"]),
-      description: json["description"],
-      firstName: json["firstName"],
-      gender: json["gender"],
-      id: json["id"],
-      lastName: json["lastName"],
-      mail: json["mail"],
-      phoneNumber: json["phoneNumber"],
-      verifiedAccount: json["verifiedAccount"],
-      password: json["password"],
-      userPhotos: []);
 }

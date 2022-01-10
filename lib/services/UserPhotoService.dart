@@ -19,7 +19,7 @@ Future<List<UserPhoto>> getAllUserPhoto({String service = "getAll"}) async {
             active: resBody['data'][i]['active'],
             id: resBody['data'][i]['id'],
             photoUrl: resBody['data'][i]['photoUrl'],
-            userId: resBody['data'][i]['userId']['id']));
+            userId: resBody['data'][i]['user']['id']));
       }
     }
     return userPhotoList;

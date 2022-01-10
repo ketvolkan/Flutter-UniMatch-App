@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:unimatch/models/User.dart';
+import 'package:unimatch/services/UserService.dart';
 import 'package:unimatch/widgets/LoginRegisterPage/background.dart';
 
 Size size = Size(0, 0);
@@ -29,6 +34,74 @@ class _RegisterState extends State<Register> {
   String _range = '';
   String _rangeCount = '';
   String dateOfBirth = "Date Of Birth";
+
+  bool active = false;
+  String dateTime = '';
+  String description = "Write Sentence About You";
+  String firstName = "";
+  String gender = "";
+  int id = 0;
+  String lastName = "";
+  String mail = "";
+  String phoneNumber = "";
+  bool verifiedAccount = false;
+  String password = "";
+  registerFunction() async {
+    if (firstName == "" ||
+        lastName == "" ||
+        gender == "" ||
+        mail == "" ||
+        phoneNumber == "" ||
+        password == "" ||
+        dateTime == "") {
+      EasyLoading.instance.maskColor = Colors.red.withOpacity(0.4);
+      EasyLoading.showToast(
+        "Please Do Not Leave Blank Space",
+        duration: Duration(seconds: 3),
+        dismissOnTap: true,
+        toastPosition: EasyLoadingToastPosition.center,
+        maskType: EasyLoadingMaskType.custom,
+      );
+    } else {
+      User registeredUser = User(
+          active: active,
+          dateOfBirth: dateTime,
+          description: description,
+          firstName: firstName,
+          gender: gender,
+          id: id,
+          lastName: lastName,
+          mail: mail,
+          phoneNumber: phoneNumber,
+          verifiedAccount: verifiedAccount,
+          password: password,
+          userPhotos: []);
+      var response = await registerUser(registeredUser);
+      var resBody = json.decode(utf8.decode(response.bodyBytes));
+
+      if (resBody['success'] == true) {
+        EasyLoading.instance..maskColor = Colors.green.withOpacity(0.4);
+        EasyLoading.showToast(
+          "Registration Successful. Confirm your email!",
+          duration: Duration(seconds: 3),
+          dismissOnTap: true,
+          toastPosition: EasyLoadingToastPosition.bottom,
+          maskType: EasyLoadingMaskType.custom,
+        );
+        Navigator.pushReplacementNamed(context, "/");
+      } else {
+        EasyLoading.instance..maskColor = Colors.red.withOpacity(0.4);
+        EasyLoading.showToast(
+          resBody['message'].toString(),
+          duration: Duration(seconds: 3),
+          dismissOnTap: true,
+          toastPosition: EasyLoadingToastPosition.center,
+          maskType: EasyLoadingMaskType.custom,
+        );
+      }
+    }
+  }
+
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       if (args.value is PickerDateRange) {
@@ -48,9 +121,11 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Background(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: <Widget>[
+            SizedBox(
+              height: 160,
+            ),
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(horizontal: 40),
@@ -69,6 +144,9 @@ class _RegisterState extends State<Register> {
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
                 decoration: InputDecoration(labelText: "First Name"),
+                onChanged: (value) {
+                  firstName = value;
+                },
               ),
             ),
             Container(
@@ -76,6 +154,19 @@ class _RegisterState extends State<Register> {
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
                 decoration: InputDecoration(labelText: "Last Name"),
+                onChanged: (value) {
+                  lastName = value;
+                },
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: 30),
+              child: TextField(
+                decoration: InputDecoration(labelText: "E-Mail"),
+                onChanged: (value) {
+                  mail = value;
+                },
               ),
             ),
             Container(
@@ -87,6 +178,7 @@ class _RegisterState extends State<Register> {
                   setState(() {
                     selectedValue = newValue!;
                   });
+                  gender = selectedValue;
                 },
                 items: dropdownItems,
               ),
@@ -97,6 +189,9 @@ class _RegisterState extends State<Register> {
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
                 decoration: InputDecoration(labelText: "Mobile Number"),
+                onChanged: (value) {
+                  phoneNumber = value;
+                },
               ),
             ),
             SizedBox(height: size.height * 0.03),
@@ -127,6 +222,7 @@ class _RegisterState extends State<Register> {
                           date.timeZoneOffset.inHours.toString());
                     }, onConfirm: (date) {
                       setState(() {
+                        dateTime = date.toString();
                         dateOfBirth = "Date Of Birth : " +
                             date.toString().replaceAll("00:00:00.000", "");
                       });
@@ -147,6 +243,9 @@ class _RegisterState extends State<Register> {
               child: TextField(
                 decoration: InputDecoration(labelText: "Password"),
                 obscureText: true,
+                onChanged: (value) {
+                  password = value;
+                },
               ),
             ),
             SizedBox(height: size.height * 0.05),
@@ -154,7 +253,7 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.centerRight,
               margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               child: RaisedButton(
-                onPressed: () {},
+                onPressed: registerFunction,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
                 textColor: Colors.white,

@@ -141,8 +141,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         ),
                                         Text(
                                           (DateTime.now()
-                                                      .difference(widget
-                                                          .profiles.dateOfBirth)
+                                                      .difference(
+                                                          DateTime.parse(widget
+                                                              .profiles
+                                                              .dateOfBirth))
                                                       .inDays /
                                                   365)
                                               .floor()

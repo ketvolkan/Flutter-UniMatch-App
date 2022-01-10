@@ -28,7 +28,7 @@ class _ProfileState extends State<Profile> {
   List<User> profiles = [
     User(
         active: true,
-        dateOfBirth: DateTime.now(),
+        dateOfBirth: "",
         description: "description",
         firstName: "firstName",
         gender: "gender",
