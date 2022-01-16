@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:unimatch/widgets/HomePage/Match.dart';
 
 class MatchButton extends StatelessWidget {
-  const MatchButton({Key? key}) : super(key: key);
+  MatchButton({Key? key, required this.currentMatch}) : super(key: key);
+  Match currentMatch;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +27,35 @@ class MatchButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.cancel_outlined),
-            color: Colors.white,
+          Row(
+            children: [
+              Text(
+                'Dislike',
+                style: TextStyle(color: Colors.white),
+              ),
+              IconButton(
+                onPressed: () {
+                  currentMatch.nope();
+                },
+                icon: Icon(Icons.cancel_outlined),
+                color: Colors.white,
+              )
+            ],
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.favorite),
-            color: Colors.red,
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  currentMatch.like();
+                },
+                icon: Icon(Icons.favorite),
+                color: Colors.red,
+              ),
+              Text(
+                'Like',
+                style: TextStyle(color: Colors.white),
+              )
+            ],
           ),
         ],
       ),

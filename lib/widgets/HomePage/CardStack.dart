@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttery_dart2/layout.dart';
 import 'package:unimatch/models/User.dart';
 import 'package:unimatch/models/UserPhoto.dart';
+import 'package:unimatch/widgets/HomePage/Match.dart';
 import 'package:unimatch/widgets/HomePage/MatchButton.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
+
 import 'package:unimatch/widgets/HomePage/PhotoBrowser.dart';
 
 class CardStack extends StatefulWidget {
@@ -29,7 +31,7 @@ class _CardStackState extends State<CardStack> {
     _currentMatch = widget.matchEngine.currentMatch;
     _currentMatch!.addListener(_onMatchChange);
 
-    _frontCard = new Key(_currentMatch!.user!.firstName);
+    _frontCard = new Key(_currentMatch!.user.firstName);
   }
 
   @override
@@ -72,7 +74,7 @@ class _CardStackState extends State<CardStack> {
         _currentMatch!.addListener(_onMatchChange);
       }
 
-      _frontCard = new Key(_currentMatch!.user!.firstName);
+      _frontCard = new Key(_currentMatch!.user.firstName);
     });
   }
 
@@ -85,7 +87,8 @@ class _CardStackState extends State<CardStack> {
       transform: Matrix4.identity()..scale(_nextCardScale, _nextCardScale),
       alignment: Alignment.center,
       child: ProfileCard(
-        user: widget.matchEngine.nextMatch.user!,
+        user: widget.matchEngine.nextMatch.user,
+        currentMatch: widget.matchEngine.currentMatch,
       ),
     );
   }
@@ -93,7 +96,8 @@ class _CardStackState extends State<CardStack> {
   Widget _buildFrontCard() {
     return ProfileCard(
       key: _frontCard,
-      user: widget.matchEngine.currentMatch.user!,
+      user: widget.matchEngine.currentMatch.user,
+      currentMatch: widget.matchEngine.currentMatch,
     );
   }
 
@@ -125,9 +129,11 @@ class _CardStackState extends State<CardStack> {
     switch (direction) {
       case SlideDirection.left:
         currenMatch.nope();
+        widget.matchEngine.MatchCountPlus();
         break;
       case SlideDirection.right:
         currenMatch.like();
+        widget.matchEngine.MatchCountPlus();
         break;
       case SlideDirection.up:
         currenMatch.superLike();
@@ -139,24 +145,44 @@ class _CardStackState extends State<CardStack> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        DraggableCard(
-          screenHeight: MediaQuery.of(context).size.height,
-          screenWidth: MediaQuery.of(context).size.width,
-          isDraggable: false,
-          card: _buildBackCard(),
+    if (widget.matchEngine.matchC != widget.matchEngine.count) {
+      return Stack(
+        children: <Widget>[
+          DraggableCard(
+            screenHeight: MediaQuery.of(context).size.height,
+            screenWidth: MediaQuery.of(context).size.width,
+            isDraggable: false,
+            card: _buildBackCard(),
+          ),
+          DraggableCard(
+            screenHeight: MediaQuery.of(context).size.height,
+            screenWidth: MediaQuery.of(context).size.width,
+            card: _buildFrontCard(),
+            slideTo: _desiredSlideOutDirection(),
+            onSlideUpdate: _onSlideUpdate,
+            onSlideComplete: _onSlideComplete,
+          ),
+        ],
+      );
+    } else {
+      return Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 280,
+            ),
+            Icon(
+              Icons.visibility_off_rounded,
+              color: Colors.blue,
+            ),
+            Text(
+              "You've seen all the matches. Stand by...",
+              style: TextStyle(color: Colors.blue),
+            )
+          ],
         ),
-        DraggableCard(
-          screenHeight: MediaQuery.of(context).size.height,
-          screenWidth: MediaQuery.of(context).size.width,
-          card: _buildFrontCard(),
-          slideTo: _desiredSlideOutDirection(),
-          onSlideUpdate: _onSlideUpdate,
-          onSlideComplete: _onSlideComplete,
-        ),
-      ],
-    );
+      );
+    }
   }
 }
 
@@ -227,7 +253,7 @@ class _DraggableCardState extends State<DraggableCard>
           });
         }
       });
-
+    slideOutDirection = SlideDirection.left;
     slideOutAnimation = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -428,8 +454,10 @@ class _DraggableCardState extends State<DraggableCard>
 
 class ProfileCard extends StatefulWidget {
   final User user;
+  Match currentMatch;
 
-  ProfileCard({Key? key, required this.user}) : super(key: key);
+  ProfileCard({Key? key, required this.user, required this.currentMatch})
+      : super(key: key);
 
   @override
   _ProfileCardState createState() => _ProfileCardState();
@@ -483,7 +511,9 @@ class _ProfileCardState extends State<ProfileCard> {
                 ),
               ],
             ),
-            MatchButton()
+            MatchButton(
+              currentMatch: widget.currentMatch,
+            )
           ],
         ),
       ),

@@ -1,13 +1,15 @@
+import 'package:meta/meta.dart';
+import 'dart:convert';
+
+import 'package:unimatch/models/UserPhoto.dart';
+
 class Like {
-  final int? id;
-  final int? popularId;
-  final int? likesId;
-  Like({this.id, this.popularId, this.likesId});
-  factory Like.fromJson(Map<String, dynamic> json) {
-    return Like(
-      id: json['id'],
-      popularId: json['popularId'],
-      likesId: json['likesId'],
-    );
-  }
+  Like({
+    required this.id,
+    required this.popularId,
+    required this.likesId,
+  });
+  final int id;
+  final int popularId;
+  final int likesId;
 }

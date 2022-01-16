@@ -1,13 +1,15 @@
+import 'package:meta/meta.dart';
+import 'dart:convert';
+
+import 'package:unimatch/models/UserPhoto.dart';
+
 class Dislike {
-  final int? id;
-  final int? dislikeId;
-  final int? outOfFavorId;
-  Dislike({this.id, this.dislikeId, this.outOfFavorId});
-  factory Dislike.fromJson(Map<String, dynamic> json) {
-    return Dislike(
-      id: json['id'],
-      dislikeId: json['dislikeId'],
-      outOfFavorId: json['outOfFavorId'],
-    );
-  }
+  Dislike({
+    required this.id,
+    required this.dislikeId,
+    required this.outOfFavorId,
+  });
+  final int id;
+  final int dislikeId;
+  final int outOfFavorId;
 }

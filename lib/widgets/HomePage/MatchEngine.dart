@@ -1,70 +1,41 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:unimatch/models/User.dart';
+import 'package:unimatch/services/DislikeService.dart';
+import 'package:unimatch/services/LikeService.dart';
+import 'package:unimatch/services/UserService.dart';
+import 'package:unimatch/widgets/HomePage/Match.dart';
 
 class MatchEngine extends ChangeNotifier {
   final List<Match> _matches;
-  late int _currrentMatchIndex;
-  late int _nextMatchIndex;
+  int? _currrentMatchIndex;
+  int? _nextMatchIndex;
+  final User currentUser;
+  int matchCount = 0;
 
-  MatchEngine({
-    required List<Match> matches,
-  }) : _matches = matches {
+  MatchEngine({required List<Match> matches, required this.currentUser})
+      : _matches = matches {
     _currrentMatchIndex = 0;
     _nextMatchIndex = 1;
   }
 
-  Match get currentMatch => _matches[_currrentMatchIndex];
-  Match get nextMatch => _matches[_nextMatchIndex];
-
+  Match get currentMatch => _matches[_currrentMatchIndex!];
+  Match get nextMatch => _matches[_nextMatchIndex!];
+  int? get matchC => matchCount;
+  int? get count => _matches.length;
   void cycleMatch() {
     if (currentMatch.decision != Decision.indecided) {
       currentMatch.reset();
       _currrentMatchIndex = _nextMatchIndex;
+
       _nextMatchIndex =
-          _nextMatchIndex < _matches.length - 1 ? _nextMatchIndex + 1 : 0;
-      notifyListeners();
-    }
-  }
-}
+          _nextMatchIndex! < _matches.length - 1 ? _nextMatchIndex! + 1 : 0;
 
-class Match extends ChangeNotifier {
-  final User? user;
-  Decision decision = Decision.indecided;
-
-  Match({this.user});
-
-  void like() {
-    if (decision == Decision.indecided) {
-      decision = Decision.like;
       notifyListeners();
     }
   }
 
-  void nope() {
-    if (decision == Decision.indecided) {
-      decision = Decision.nope;
-      notifyListeners();
-    }
+  void MatchCountPlus() {
+    matchCount++;
   }
-
-  void superLike() {
-    if (decision == Decision.indecided) {
-      decision = Decision.superLike;
-      notifyListeners();
-    }
-  }
-
-  void reset() {
-    if (decision != Decision.indecided) {
-      decision = Decision.indecided;
-      notifyListeners();
-    }
-  }
-}
-
-enum Decision {
-  indecided,
-  nope,
-  like,
-  superLike,
 }
