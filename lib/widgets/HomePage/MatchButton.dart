@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unimatch/utilities/texts.dart';
 import 'package:unimatch/widgets/HomePage/Match.dart';
 
 class MatchButton extends StatelessWidget {
@@ -30,7 +31,7 @@ class MatchButton extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Dislike',
+                DislikeText,
                 style: TextStyle(color: Colors.white),
               ),
               IconButton(
@@ -52,7 +53,7 @@ class MatchButton extends StatelessWidget {
                 color: Colors.red,
               ),
               Text(
-                'Like',
+                LikeText,
                 style: TextStyle(color: Colors.white),
               )
             ],

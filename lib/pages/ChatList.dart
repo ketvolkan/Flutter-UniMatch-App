@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unimatch/models/User.dart';
+import 'package:unimatch/utilities/texts.dart';
 import 'package:unimatch/widgets/ChatPage/ChatListPage.dart';
 import 'package:unimatch/widgets/HomePage/CardStack.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
@@ -19,7 +20,7 @@ class _ChatListState extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: ' UniMatch '),
+      appBar: MyAppBar(title: TitleText),
       body: Container(margin: EdgeInsets.only(bottom: 0), child: ChatLists()),
       bottomNavigationBar: MyBottomAppBar(currentIndex: 2),
     );

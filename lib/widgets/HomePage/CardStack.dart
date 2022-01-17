@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttery_dart2/layout.dart';
 import 'package:unimatch/models/User.dart';
 import 'package:unimatch/models/UserPhoto.dart';
+import 'package:unimatch/widgets/HomePage/AllMatchFinished.dart';
 import 'package:unimatch/widgets/HomePage/Match.dart';
 import 'package:unimatch/widgets/HomePage/MatchButton.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
@@ -165,23 +166,7 @@ class _CardStackState extends State<CardStack> {
         ],
       );
     } else {
-      return Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 280,
-            ),
-            Icon(
-              Icons.visibility_off_rounded,
-              color: Colors.blue,
-            ),
-            Text(
-              "You've seen all the matches. Stand by...",
-              style: TextStyle(color: Colors.blue),
-            )
-          ],
-        ),
-      );
+      return AllMatchFinished();
     }
   }
 }

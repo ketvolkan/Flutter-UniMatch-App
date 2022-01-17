@@ -6,6 +6,7 @@ import 'package:unimatch/models/UserPhoto.dart';
 import 'package:unimatch/pages/Profile.dart';
 import 'package:unimatch/services/UserPhotoService.dart';
 import 'package:unimatch/services/UserService.dart';
+import 'package:unimatch/utilities/texts.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key, required this.profiles}) : super(key: key);
@@ -90,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         child: Column(
                                       children: [
                                         Text(
-                                          'Üniversite',
+                                          UniversityText,
                                           style: TextStyle(
                                               color: Colors.grey[400],
                                               fontSize: 14.0),
@@ -109,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Container(
                                       child: Column(children: [
                                         Text(
-                                          'Birthday',
+                                          BirthdayText,
                                           style: TextStyle(
                                               color: Colors.grey[400],
                                               fontSize: 14.0),
@@ -131,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         child: Column(
                                       children: [
                                         Text(
-                                          'Age',
+                                          AgeText,
                                           style: TextStyle(
                                               color: Colors.grey[400],
                                               fontSize: 14.0),

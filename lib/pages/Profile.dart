@@ -6,6 +6,8 @@ import 'package:unimatch/models/User.dart';
 import 'package:unimatch/models/UserPhoto.dart';
 import 'package:unimatch/services/UserPhotoService.dart';
 import 'package:unimatch/services/UserService.dart';
+import 'package:unimatch/utilities/functions.dart';
+import 'package:unimatch/utilities/texts.dart';
 import 'package:unimatch/widgets/HomePage/CardStack.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
 import 'package:unimatch/widgets/HomePage/MyAppBar.dart';
@@ -44,7 +46,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(title: ' UniMatch '),
+      appBar: MyAppBar(title: TitleText),
       body: FutureBuilder<dynamic>(
         future: SessionManager().get('id'),
         builder: (context, SnapshotId) {
@@ -59,24 +61,8 @@ class _ProfileState extends State<Profile> {
                     future: getAllUserPhoto(),
                     builder: (context, SnapshotUserPhoto) {
                       if (SnapshotUserPhoto.hasData) {
-                        print(SnapshotUserPhoto.data![0].photoUrl);
-                        profiles = SnapshotUser.data!;
-
-                        List<UserPhoto> _photos = SnapshotUserPhoto.data!;
-                        for (var i = 0; i < profiles.length; i++) {
-                          for (var h = 0; h < _photos.length; h++) {
-                            if (profiles[i].id == _photos[h].userId) {
-                              profiles[i].userPhotos.add(_photos[h].photoUrl);
-                            }
-                          }
-                          if (profiles[i].userPhotos.length == 0) {
-                            profiles[i]
-                                .userPhotos
-                                .add("assets/placeholder_image.jpg");
-                          }
-                        }
-                        print(profiles[0].firstName);
-
+                        profiles = ProfileAllProfilesMethod(
+                            SnapshotUser, SnapshotUserPhoto);
                         return ProfilePage(profiles: profiles[0]);
                       } else
                         return Center(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:unimatch/models/User.dart';
 import 'package:unimatch/services/UserService.dart';
+import 'package:unimatch/utilities/texts.dart';
 import 'package:unimatch/widgets/LoginRegisterPage/background.dart';
 
 Size size = Size(0, 0);
@@ -43,7 +44,7 @@ class _LoginState extends State<Login> {
       Navigator.pushReplacementNamed(context, "/Home", arguments: id);
     } else {
       setState(() {
-        giris = "Giriş Başarısız!";
+        giris = LoginFailText;
       });
     }
   }
@@ -59,7 +60,7 @@ class _LoginState extends State<Login> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                "LOGIN",
+                LoginText,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2661FA),
@@ -72,7 +73,7 @@ class _LoginState extends State<Login> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 40),
               child: TextField(
-                decoration: InputDecoration(labelText: "Mail"),
+                decoration: InputDecoration(labelText: MailText),
                 onChanged: (value) => mail = value,
               ),
             ),
@@ -81,7 +82,7 @@ class _LoginState extends State<Login> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 40),
               child: TextField(
-                decoration: InputDecoration(labelText: "Password"),
+                decoration: InputDecoration(labelText: PasswordText),
                 obscureText: true,
                 onChanged: (value) => password = value,
               ),
@@ -90,7 +91,7 @@ class _LoginState extends State<Login> {
               alignment: Alignment.centerRight,
               margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Text(
-                "Forgot your password?",
+                PasswordForget,
                 style: TextStyle(fontSize: 12, color: Color(0XFF2661FA)),
               ),
             ),
@@ -118,7 +119,7 @@ class _LoginState extends State<Login> {
                   child: TextButton(
                     onPressed: loginCheck,
                     child: Text(
-                      "LOGIN",
+                      LoginText,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),

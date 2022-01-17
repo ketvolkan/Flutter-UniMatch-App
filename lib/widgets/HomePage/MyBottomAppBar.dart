@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unimatch/utilities/texts.dart';
 
 class MyBottomAppBar extends StatelessWidget {
   const MyBottomAppBar({required this.currentIndex, Key? key})
@@ -53,21 +54,21 @@ class MyBottomAppBar extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
             title: Text(
-              "Profile",
+              BottomAppBarText1,
               style: TextStyle(color: Colors.white),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_fire_department_outlined),
             title: Text(
-              "Matches",
+              BottomAppBarText2,
               style: TextStyle(color: Colors.white),
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message_outlined),
             title: Text(
-              "Message",
+              BottomAppBarText3,
               style: TextStyle(color: Colors.white),
             ),
           ),

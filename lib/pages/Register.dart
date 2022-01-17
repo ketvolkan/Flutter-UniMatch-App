@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:unimatch/models/User.dart';
 import 'package:unimatch/services/UserService.dart';
+import 'package:unimatch/utilities/texts.dart';
 import 'package:unimatch/widgets/LoginRegisterPage/background.dart';
 
 Size size = Size(0, 0);
@@ -56,7 +57,7 @@ class _RegisterState extends State<Register> {
         dateTime == "") {
       EasyLoading.instance.maskColor = Colors.red.withOpacity(0.4);
       EasyLoading.showToast(
-        "Please Do Not Leave Blank Space",
+        DontBlankSpace,
         duration: Duration(seconds: 3),
         dismissOnTap: true,
         toastPosition: EasyLoadingToastPosition.center,
@@ -82,7 +83,7 @@ class _RegisterState extends State<Register> {
       if (resBody['success'] == true) {
         EasyLoading.instance..maskColor = Colors.green.withOpacity(0.4);
         EasyLoading.showToast(
-          "Registration Successful. Confirm your email!",
+          RegisterSuccess,
           duration: Duration(seconds: 3),
           dismissOnTap: true,
           toastPosition: EasyLoadingToastPosition.bottom,
@@ -130,7 +131,7 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                "REGISTER",
+                RegisterText,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2661FA),
@@ -143,7 +144,7 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
-                decoration: InputDecoration(labelText: "First Name"),
+                decoration: InputDecoration(labelText: FirstNameText),
                 onChanged: (value) {
                   firstName = value;
                 },
@@ -153,7 +154,7 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
-                decoration: InputDecoration(labelText: "Last Name"),
+                decoration: InputDecoration(labelText: LastNameText),
                 onChanged: (value) {
                   lastName = value;
                 },
@@ -163,7 +164,7 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
-                decoration: InputDecoration(labelText: "E-Mail"),
+                decoration: InputDecoration(labelText: MailText),
                 onChanged: (value) {
                   mail = value;
                 },
@@ -223,7 +224,7 @@ class _RegisterState extends State<Register> {
                     }, onConfirm: (date) {
                       setState(() {
                         dateTime = date.toString();
-                        dateOfBirth = "Date Of Birth : " +
+                        dateOfBirth = DateOfBirthText +
                             date.toString().replaceAll("00:00:00.000", "");
                       });
                     }, currentTime: DateTime.now(), locale: LocaleType.en);
@@ -241,7 +242,7 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
-                decoration: InputDecoration(labelText: "Password"),
+                decoration: InputDecoration(labelText: PasswordText),
                 obscureText: true,
                 onChanged: (value) {
                   password = value;
@@ -270,7 +271,7 @@ class _RegisterState extends State<Register> {
                       ])),
                   padding: const EdgeInsets.all(0),
                   child: Text(
-                    "SIGN UP",
+                    SignUpText,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
@@ -285,7 +286,7 @@ class _RegisterState extends State<Register> {
                 onTap: () =>
                     {Navigator.pushReplacementNamed(context, "/Login")},
                 child: Text(
-                  "Already Have an Account? Sign in",
+                  AlreadyHaveAccountText,
                   style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -304,19 +305,19 @@ List<DropdownMenuItem<String>> get dropdownItems {
   List<DropdownMenuItem<String>> menuItems = [
     DropdownMenuItem(
         child: Text(
-          "Gender",
+          GenderText,
           style: TextStyle(color: Colors.grey),
         ),
         value: ""),
     DropdownMenuItem(
         child: Text(
-          "Women",
+          WomanText,
           style: TextStyle(color: Colors.grey),
         ),
         value: "K"),
     DropdownMenuItem(
         child: Text(
-          "Men",
+          ManText,
           style: TextStyle(color: Colors.grey),
         ),
         value: "E"),
