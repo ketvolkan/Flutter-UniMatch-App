@@ -5,6 +5,7 @@ import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:unimatch/models/User.dart';
 import 'package:unimatch/pages/Chat.dart';
 import 'package:unimatch/pages/ChatList.dart';
+import 'package:unimatch/pages/EditPhoto.dart';
 import 'package:unimatch/pages/Home.dart';
 import 'package:unimatch/pages/Profile.dart';
 import 'package:unimatch/pages/Login.dart';
@@ -44,13 +45,12 @@ class RouteGenerator {
   static Route<dynamic>? routeGenerator(RouteSettings setting) {
     switch (setting.name) {
       case '/':
-        if (login == true) {
-          return _routeOlustur(Home(), setting);
-        } else {
-          return _routeOlustur(LoginScreen(), setting);
-        }
+        return _routeOlustur(LoginScreen(), setting);
+
       case '/Login':
         return _routeOlustur(LoginScreen(), setting);
+      case '/EditPhoto':
+        return _routeOlustur(EditPhoto(), setting);
       case '/Home':
         return _routeOlustur(Home(), setting);
       case '/Register':

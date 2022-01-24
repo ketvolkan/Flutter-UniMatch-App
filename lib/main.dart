@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
       title: 'UniMatch',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColorBrightness: Brightness.light,
-        primarySwatch: Colors.deepPurple,
-      ),
+          primaryColorBrightness: Brightness.light,
+          primarySwatch: Colors.deepPurple,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
       onGenerateRoute: RouteGenerator.routeGenerator,
       builder: EasyLoading.init(),
     );

@@ -9,6 +9,7 @@ import 'package:unimatch/services/UserService.dart';
 import 'package:unimatch/utilities/functions.dart';
 import 'package:unimatch/utilities/texts.dart';
 import 'package:unimatch/widgets/HomePage/CardStack.dart';
+import 'package:unimatch/widgets/HomePage/HomeProgress.dart';
 import 'package:unimatch/widgets/HomePage/MatchEngine.dart';
 import 'package:unimatch/widgets/HomePage/MyAppBar.dart';
 import 'package:unimatch/widgets/HomePage/MyBottomAppBar.dart';
@@ -65,21 +66,16 @@ class _ProfileState extends State<Profile> {
                             SnapshotUser, SnapshotUserPhoto);
                         return ProfilePage(profiles: profiles[0]);
                       } else
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return HomeProgress(
+                            text: PhotosLoading, color: Colors.blue);
                     },
                   );
                 } else
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return HomeProgress(text: AllUserLoading, color: Colors.blue);
               },
             );
           } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return HomeProgress(text: SessionLoading, color: Colors.blue);
           }
         },
       ),
